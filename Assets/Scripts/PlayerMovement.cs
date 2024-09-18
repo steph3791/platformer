@@ -133,7 +133,7 @@ public class PlayerMovement : MonoBehaviour
         {
             ResetJumpReleasedStats();
             _jumpCount++;
-            if (_jumpCount<=2)
+            if (_jumpCount<=1)
             {
                 _rigidbody2D.gravityScale = _initGravityScale;
                 _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, 0);
