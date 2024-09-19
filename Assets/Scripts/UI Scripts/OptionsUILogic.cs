@@ -9,7 +9,7 @@ namespace UI
         private const string CancelButtonName = "CancelButton";
         private const string ConfirmButtonName = "ConfirmButton";
         private const string ResetButtonName = "ResetButton";
-        private const string MovementSpeedSliderName = "MovementSpeedSlider";
+        private const string MovementSpeedSliderName = "SpeedSlider";
 
         public event EventHandler LeaveOptionsMenu;
         protected virtual void OnLeaveOptionsButtonPressed()
