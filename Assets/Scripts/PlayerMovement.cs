@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     private float _initGravityScale;
     private bool _jumpReleased = false;
     private float _jumpFloatDuration = 0f;
+    private float _lastMovementDirection;
 
 
     // Start is called before the first frame update
@@ -52,7 +53,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        Debug.Log("Colliding with: " + other.gameObject.tag);
         if (other.gameObject.CompareTag("Platform"))
         {
             if (Mathf.Abs(Vector2.Angle(other.contacts[0].normal, Vector2.left) - 90f) < 1)
@@ -72,7 +72,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Platform"))
         {
-            Debug.Log(Vector2.Angle(other.contacts[0].normal, Vector2.left));
             if (Mathf.Abs(Vector2.Angle(other.contacts[0].normal, Vector2.left) - 90f) < 1 )
             {
                 ResetJumpStats();
@@ -123,7 +122,9 @@ public class PlayerMovement : MonoBehaviour
 
     void OnMove(InputValue value)
     {
+        Debug.Log("OnMove");
         _movementDirection = value.Get<Vector2>().x;
+        Debug.Log(_movementDirection);
     }
 
     void OnJump(InputValue value)
