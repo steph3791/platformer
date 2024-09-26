@@ -30,14 +30,8 @@ public class Audio : MonoBehaviour
         
     }
 
-    private void OnJump(InputValue value)
+    public void Play()
     {
-        if (value.isPressed)
-        {
-            _jumpSource.Play();
-        }
-
+        _jumpSource.Play();
     }
-    
-    
 }
