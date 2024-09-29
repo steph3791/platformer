@@ -174,10 +174,11 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleWallJump()
     {
-        Debug.Log("Handling Wall Jump with direction: " +_wallJumpDirection);
-        ResetAllPhysics();
-        _rigidbody2D.position = new Vector2(_rigidbody2D.position.x + (0.1f * _wallJumpDirection), _rigidbody2D.position.y);
-        _rigidbody2D.AddForce(new Vector2(5 * _wallJumpDirection, jumpForce), ForceMode2D.Impulse);
+        // Debug.Log("Handling Wall Jump with direction: " +_wallJumpDirection);
+        // ResetAllPhysics();
+        // _rigidbody2D.position = new Vector2(_rigidbody2D.position.x + (0.1f * _wallJumpDirection), _rigidbody2D.position.y);
+        // _rigidbody2D.AddForce(new Vector2(5 * _wallJumpDirection, jumpForce), ForceMode2D.Impulse);
+        // _canWallJump = false;
     }
 
     private void ResetAllPhysics()
