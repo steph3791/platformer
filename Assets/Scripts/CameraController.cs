@@ -15,7 +15,12 @@ public class CameraController : MonoBehaviour
         if (player == null)
         {
             Debug.LogError("Camera has no Player Reference set");
-            EditorApplication.isPlaying = false;
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+        // Quit the application if in a build
+        Application.Quit();
+#endif
         }
 
     }
@@ -26,7 +31,7 @@ public class CameraController : MonoBehaviour
         
     }
 
-    void LateUpdate()
+    void FixedUpdate()
     {
         if (player.transform.position.x > _initPos.x)
         {

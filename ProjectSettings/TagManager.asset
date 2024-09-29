@@ -5,9 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Platform
-  - EdgeTrigger
   - Obstacle
   - Wall
+  - Void
   layers:
   - Default
   - TransparentFX

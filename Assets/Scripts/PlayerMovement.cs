@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] [Range(1, 10)] private float jumpForce = 7;
     [SerializeField] [Range(1f, 1.5f)] private float fallIncreaseFactor = 1.1f;
     [SerializeField] private Audio jumpSound;
+    
+    private SavePointManager saveManager;
 
     private readonly float _maxJumpFloatDuration = 15f;
 
@@ -29,6 +31,17 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        saveManager = GetComponent<SavePointManager>();
+        if (saveManager == null)
+        {
+            Debug.LogError("Unable to find SavePointManager Component on player instance");
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+        // Quit the application if in a build
+        Application.Quit();
+#endif
+        }
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _initGravityScale = _rigidbody2D.gravityScale;
         _jumpCount = 0;
@@ -42,12 +55,10 @@ public class PlayerMovement : MonoBehaviour
         if (!_canWallJump && _freezeMovement < 0)
         {
             _rigidbody2D.velocity = new Vector2(_movementDirection * speed, Mathf.Max(_rigidbody2D.velocity.y, -9f));
-            Debug.Log("Set Velocity to " + _rigidbody2D.velocity + " in fixed update");
         }
         else
         {
             _freezeMovement--;
-            Debug.Log("Reducing freezeMovement");
         }
         if (_rigidbody2D.velocity.y < 0)
         {
@@ -77,11 +88,15 @@ public class PlayerMovement : MonoBehaviour
                 ResetJumpStats();
                 ResetJumpReleasedStats();
         }
-
         if (other.gameObject.CompareTag("Wall"))
         {
             InitializeWallJump(other.contacts[0].normal);
+        }
 
+        if (other.gameObject.CompareTag("Obstacle"))
+        {
+            Debug.Log("Collided with Obstacle");
+            transform.position = saveManager.lastCheckpoint;
         }
     }
 
@@ -109,10 +124,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Obstacle"))
+        if (other.gameObject.CompareTag("Void"))
         {
             //TODO handle Death
-            EditorApplication.isPlaying = false;
+            gameObject.transform.position = saveManager.lastCheckpoint;
         }
     }
     
