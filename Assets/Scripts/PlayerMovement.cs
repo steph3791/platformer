@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool _canWallJump;
     private float _wallJumpDirection;
+    private float _freezeMovement;
 
 
     // Start is called before the first frame update
@@ -38,10 +39,15 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!_canWallJump)
+        if (!_canWallJump && _freezeMovement < 0)
         {
             _rigidbody2D.velocity = new Vector2(_movementDirection * speed, Mathf.Max(_rigidbody2D.velocity.y, -9f));
-
+            Debug.Log("Set Velocity to " + _rigidbody2D.velocity + " in fixed update");
+        }
+        else
+        {
+            _freezeMovement--;
+            Debug.Log("Reducing freezeMovement");
         }
         if (_rigidbody2D.velocity.y < 0)
         {
@@ -68,47 +74,36 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Platform"))
         {
-            bool hasHorizontalCollision = other.contacts.Any(c => IsPlatformCollision(c.normal));
-            if (hasHorizontalCollision)
-            {
                 ResetJumpStats();
                 ResetJumpReleasedStats();
-                _canWallJump = false;
-            }
-            else
-            {
-                //TODO handle wall jump
-                _canWallJump = true;
-                Vector2 normal = other.contacts[0].normal;
-                _wallJumpDirection = normal.normalized.x;
-            }
+        }
+
+        if (other.gameObject.CompareTag("Wall"))
+        {
+            InitializeWallJump(other.contacts[0].normal);
+
         }
     }
 
-    private bool IsPlatformCollision(Vector2 collisionNormal)
+    private void InitializeWallJump(Vector3 normal)
     {
-        float angle = Vector2.Angle(collisionNormal, Vector2.left);
-        Debug.Log(angle);
-        return angle - 90f < 1 && angle - 90f > 0;
+        Debug.Log("Colliding with Wall");
+        _canWallJump = true;
+        _freezeMovement = 20f;
+        _wallJumpDirection = normal.normalized.x;
     }
+
 
     private void OnCollisionStay2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Platform"))
         {
-            bool hasHorizontalCollision = other.contacts.Any(c => IsPlatformCollision(c.normal));
-            if (hasHorizontalCollision)
-            {
                 ResetJumpStats();
                 ResetJumpReleasedStats();
-                _canWallJump = false;
-
-            }
-            else
-            {
-                //TODO handle wall slide
-                _canWallJump = true;
-            }
+        }
+        if (other.gameObject.CompareTag("Wall"))
+        {
+            InitializeWallJump(other.contacts[0].normal);
         }
     }
 
@@ -120,10 +115,7 @@ public class PlayerMovement : MonoBehaviour
             EditorApplication.isPlaying = false;
         }
     }
-
-
-
-
+    
     void OnMove(InputValue value)
     {
         _movementDirection = value.Get<Vector2>().x;
@@ -137,10 +129,7 @@ public class PlayerMovement : MonoBehaviour
             _jumpCount++;
             if (_canWallJump)
             {
-                if (_jumpCount >= 2)
-                {
-                    _canWallJump = false;
-                }
+                _canWallJump = false;
                 HandleWallJump();
                 return;
             }
@@ -174,11 +163,10 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleWallJump()
     {
-        // Debug.Log("Handling Wall Jump with direction: " +_wallJumpDirection);
-        // ResetAllPhysics();
-        // _rigidbody2D.position = new Vector2(_rigidbody2D.position.x + (0.1f * _wallJumpDirection), _rigidbody2D.position.y);
-        // _rigidbody2D.AddForce(new Vector2(5 * _wallJumpDirection, jumpForce), ForceMode2D.Impulse);
-        // _canWallJump = false;
+        Debug.Log("Handling Wall Jump with direction: " +_wallJumpDirection);
+        ResetAllPhysics();
+        _rigidbody2D.position = new Vector2(_rigidbody2D.position.x + (0.1f * _wallJumpDirection), _rigidbody2D.position.y);
+        _rigidbody2D.AddForce(new Vector2(5 * _wallJumpDirection, jumpForce), ForceMode2D.Impulse);
     }
 
     private void ResetAllPhysics()

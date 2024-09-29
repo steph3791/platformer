@@ -95,9 +95,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.08, y: 0}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.09
+  m_Radius: 0.06
 --- !u!231 &1505126613598096722
 SpringJoint2D:
   m_ObjectHideFlags: 0
@@ -118,7 +118,7 @@ SpringJoint2D:
   m_AutoConfigureDistance: 1
   m_Distance: 0.005
   m_DampingRatio: 0.5
-  m_Frequency: 3
+  m_Frequency: 0.1
 --- !u!231 &3320351338514995332
 SpringJoint2D:
   m_ObjectHideFlags: 0
@@ -139,7 +139,7 @@ SpringJoint2D:
   m_AutoConfigureDistance: 1
   m_Distance: 0.005
   m_DampingRatio: 0.5
-  m_Frequency: 3
+  m_Frequency: 0.1
 --- !u!231 &4865382555288100952
 SpringJoint2D:
   m_ObjectHideFlags: 0
@@ -370,9 +370,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.08, y: 0}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.09
+  m_Radius: 0.06
 --- !u!231 &6156003523901659011
 SpringJoint2D:
   m_ObjectHideFlags: 0
@@ -393,7 +393,7 @@ SpringJoint2D:
   m_AutoConfigureDistance: 1
   m_Distance: 0.005
   m_DampingRatio: 0.5
-  m_Frequency: 3
+  m_Frequency: 0.1
 --- !u!231 &6778482795457778690
 SpringJoint2D:
   m_ObjectHideFlags: 0
@@ -414,7 +414,7 @@ SpringJoint2D:
   m_AutoConfigureDistance: 1
   m_Distance: 0.005
   m_DampingRatio: 0.5
-  m_Frequency: 3
+  m_Frequency: 0.1
 --- !u!231 &7111433175745985297
 SpringJoint2D:
   m_ObjectHideFlags: 0
@@ -531,9 +531,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.08, y: 0}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.09
+  m_Radius: 0.06
 --- !u!231 &139874294246468082
 SpringJoint2D:
   m_ObjectHideFlags: 0
@@ -554,7 +554,7 @@ SpringJoint2D:
   m_AutoConfigureDistance: 1
   m_Distance: 0.005
   m_DampingRatio: 0.5
-  m_Frequency: 3
+  m_Frequency: 0.1
 --- !u!231 &185310550903675162
 SpringJoint2D:
   m_ObjectHideFlags: 0
@@ -575,7 +575,7 @@ SpringJoint2D:
   m_AutoConfigureDistance: 1
   m_Distance: 0.005
   m_DampingRatio: 0.5
-  m_Frequency: 3
+  m_Frequency: 0.1
 --- !u!231 &5854611921443367466
 SpringJoint2D:
   m_ObjectHideFlags: 0
@@ -692,9 +692,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.08, y: 0}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.09
+  m_Radius: 0.06
 --- !u!231 &3441836248436319094
 SpringJoint2D:
   m_ObjectHideFlags: 0
@@ -715,7 +715,7 @@ SpringJoint2D:
   m_AutoConfigureDistance: 1
   m_Distance: 0.005
   m_DampingRatio: 0.5
-  m_Frequency: 3
+  m_Frequency: 0.1
 --- !u!231 &7640750465077888816
 SpringJoint2D:
   m_ObjectHideFlags: 0
@@ -736,7 +736,7 @@ SpringJoint2D:
   m_AutoConfigureDistance: 1
   m_Distance: 0.005
   m_DampingRatio: 0.5
-  m_Frequency: 3
+  m_Frequency: 0.1
 --- !u!231 &8751110476995738454
 SpringJoint2D:
   m_ObjectHideFlags: 0
@@ -811,7 +811,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: a3ab2536bf74c0f499f97211b239f433, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -854,7 +854,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.027762309, y: -0.017656565}
+  m_Offset: {x: 0.027762294, y: -0.017656073}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -865,7 +865,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.71517396, y: 1.0027161}
+  m_Size: {x: 0.71517396, y: 0.9467839}
   m_EdgeRadius: 0
 --- !u!58 &1072504764544477494
 CircleCollider2D:
@@ -947,6 +947,7 @@ MonoBehaviour:
   speed: 10
   jumpForce: 7
   fallIncreaseFactor: 1.1
+  jumpSound: {fileID: 1977051396664853470}
 --- !u!114 &1977051396664853470
 MonoBehaviour:
   m_ObjectHideFlags: 0
