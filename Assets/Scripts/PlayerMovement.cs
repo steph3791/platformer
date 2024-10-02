@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] [Range(5, 20)] private int speed = 10;
+    // [SerializeField] [Range(5, 20)] private int speed = 10;
     [SerializeField] [Range(1, 10)] private float jumpForce = 7;
     [SerializeField] [Range(1f, 1.5f)] private float fallIncreaseFactor = 1.1f;
     [SerializeField] private Audio jumpSound;
@@ -42,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!_canWallJump && _freezeMovement < 0)
         {
-            _rigidbody2D.velocity = new Vector2(_movementDirection * speed, Mathf.Max(_rigidbody2D.velocity.y, -9f));
+            _rigidbody2D.velocity = new Vector2(_movementDirection * OptionsManager.Instance.MovementSpeed, Mathf.Max(_rigidbody2D.velocity.y, -9f));
         }
         else
         {

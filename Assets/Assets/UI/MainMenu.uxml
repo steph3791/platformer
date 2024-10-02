@@ -1,11 +1,11 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:Label tabindex="-1" text="CubeDash" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Titel" style="-unity-text-align: upper-center; align-self: center; font-size: 32px; color: rgb(0, 0, 0); -unity-font-style: bold;" />
+    <ui:Label tabindex="-1" text="CubeDash" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Titel" style="-unity-text-align: upper-center; align-self: center; font-size: 32px; color: rgb(0, 0, 0); -unity-font-style: bold; top: 13px;" />
     <ui:VisualElement name="Center" style="flex-grow: 1; justify-content: space-around; flex-direction: row;">
         <ui:VisualElement style="flex-grow: 1;" />
         <ui:VisualElement name="Content" style="flex-grow: 1; flex-direction: column; justify-content: center;">
-            <ui:Button text="Start" parse-escape-sequences="true" display-tooltip-when-elided="true" name="StartButton" />
-            <ui:Button text="Options" parse-escape-sequences="true" display-tooltip-when-elided="true" name="OptionsButton" />
-            <ui:Button text="Quit" parse-escape-sequences="true" display-tooltip-when-elided="true" name="QuitButton" />
+            <ui:Button text="Start" parse-escape-sequences="true" display-tooltip-when-elided="true" name="StartButton" style="background-color: rgb(247, 236, 138); -unity-font-style: bold;" />
+            <ui:Button text="Options" parse-escape-sequences="true" display-tooltip-when-elided="true" name="OptionsButton" style="background-color: rgb(247, 236, 138); -unity-font-style: bold;" />
+            <ui:Button text="Quit" parse-escape-sequences="true" display-tooltip-when-elided="true" name="QuitButton" style="background-color: rgb(247, 236, 138); font-size: 14px; -unity-font-style: bold;" />
         </ui:VisualElement>
         <ui:VisualElement style="flex-grow: 1;" />
     </ui:VisualElement>

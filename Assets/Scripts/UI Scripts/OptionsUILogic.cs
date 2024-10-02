@@ -23,9 +23,8 @@ namespace UI
             ResetButtonPressed?.Invoke(this, EventArgs.Empty);
         }
 
+        
         private UIDocument _optionsDocument;
-        private float _movementSpeed;
-
         private void OnEnable()
         {
             _optionsDocument = GetComponent<UIDocument>();
@@ -36,14 +35,17 @@ namespace UI
                 return;
             }
             
-            SliderInt powerSlider = _optionsDocument.rootVisualElement.Q<SliderInt>(MovementSpeedSliderName);
-            _movementSpeed = powerSlider.value;
-            powerSlider.RegisterValueChangedCallback(evt => { _movementSpeed = evt.newValue; });
+            SliderInt speedSlider = _optionsDocument.rootVisualElement.Q<SliderInt>(MovementSpeedSliderName);
+            speedSlider.value = OptionsManager.Instance.MovementSpeed;
+            speedSlider.RegisterValueChangedCallback(evt =>
+            {
+                OptionsManager.Instance.MovementSpeed = evt.newValue;
+            });
 
             _optionsDocument.rootVisualElement.Q<Button>(ConfirmButtonName).clicked += () =>
             {
                 Debug.Log("Confirm button clicked!");
-                Debug.Log("Movement Speed: " + _movementSpeed);
+                Debug.Log("Movement Speed: " + OptionsManager.Instance.MovementSpeed);
                 OnLeaveOptionsButtonPressed();
             };
             _optionsDocument.rootVisualElement.Q<Button>(CancelButtonName).clicked += () =>
