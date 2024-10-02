@@ -1,37 +1,38 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace UI
 {
     public class HomeUIManager : MonoBehaviour
     {
-        [SerializeField] private MainMenuUILogic mainMenuPanelPrefab;
+        [SerializeField] private HomeUILogic homePrefab;
         [SerializeField] private OptionsUILogic optionsPanelPrefab;
-        private MainMenuUILogic _mainMenuPanel;
+        private HomeUILogic _homePanel;
         private OptionsUILogic _optionsPanel;
 
         private void Awake()
         {
-            _mainMenuPanel = Instantiate(mainMenuPanelPrefab, transform);
+            _homePanel = Instantiate(homePrefab, transform);
             _optionsPanel = Instantiate(optionsPanelPrefab, transform);
         }
 
         private void Start()
         {
             _optionsPanel.gameObject.SetActive(false);
-            _mainMenuPanel.OptionsButtonPressed += OnOptionsButtonPressed;
+            _homePanel.OptionsButtonPressed += OnOptionsButtonPressed;
             _optionsPanel.LeaveOptionsMenu += OnLeaveOptionsMenu;
         }
 
         private void OnOptionsButtonPressed(object sender, EventArgs e)
         {
-            _mainMenuPanel.gameObject.SetActive(false);
+            _homePanel.gameObject.SetActive(false);
             _optionsPanel.gameObject.SetActive(true);
         }
 
         private void OnLeaveOptionsMenu(object sender, EventArgs e)
         {
-            _mainMenuPanel.gameObject.SetActive(true);
+            _homePanel.gameObject.SetActive(true);
             _optionsPanel.gameObject.SetActive(false);
         }
     }

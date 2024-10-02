@@ -429,7 +429,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6eeaf22e5cf42868986b4ce95ca8e57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMenuPanelPrefab: {fileID: 7487651802523338330, guid: e33859b6830768e499e7464ef7430173, type: 3}
+  homePrefab: {fileID: 7487651802523338330, guid: e33859b6830768e499e7464ef7430173, type: 3}
   optionsPanelPrefab: {fileID: 5919110925867851862, guid: 3750da92c695b1941a3b7ed5759bc6c6, type: 3}
 --- !u!4 &1083177912
 Transform:

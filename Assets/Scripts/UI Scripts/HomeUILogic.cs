@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class MainMenuUILogic : MonoBehaviour
+public class HomeUILogic : MonoBehaviour
 {
     private const string StartButtonName = "StartButton";
     private const string ExitButtonName = "QuitButton";

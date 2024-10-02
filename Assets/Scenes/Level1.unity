@@ -518,6 +518,52 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &79150195
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 79150197}
+  - component: {fileID: 79150198}
+  m_Layer: 5
+  m_Name: PauseMenu
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &79150197
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79150195}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &79150198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79150195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06e6e1ea7a2b4904287529425d5a2dc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseUiLogic: {fileID: 6125314918879441436, guid: 94ebf685ff73456499a3b0f440549bd3, type: 3}
+  optionsPanelPrefab: {fileID: 5919110925867851862, guid: 3750da92c695b1941a3b7ed5759bc6c6, type: 3}
 --- !u!1 &86810080
 GameObject:
   m_ObjectHideFlags: 0
@@ -50143,3 +50189,4 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 1169129469}
   - {fileID: 539940569}
+  - {fileID: 79150197}

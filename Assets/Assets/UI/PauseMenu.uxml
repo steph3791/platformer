@@ -1,0 +1,14 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1;" />
+    <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+        <ui:VisualElement style="flex-grow: 1;" />
+        <ui:VisualElement style="flex-grow: 1;">
+            <ui:Button text="Continue" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ContinueButton" style="background-color: rgb(247, 236, 138);" />
+            <ui:Button text="Options" parse-escape-sequences="false" display-tooltip-when-elided="true" name="OptionsButton" style="background-color: rgb(247, 236, 138);" />
+            <ui:Button text="Exit To Menu" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ExitToMenuButton" style="align-items: auto; align-self: auto; flex-grow: 0; background-color: rgb(247, 236, 138);" />
+            <ui:VisualElement style="flex-grow: 1; flex-direction: row; align-items: center; justify-content: center; flex-wrap: nowrap; align-self: center; height: auto; visibility: visible; flex-basis: 0;" />
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-grow: 1;" />
+    </ui:VisualElement>
+    <ui:VisualElement style="flex-grow: 1;" />
+</ui:UXML>
