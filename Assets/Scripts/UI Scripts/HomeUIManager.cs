@@ -13,6 +13,7 @@ namespace UI
         private void Awake()
         {
             _mainMenuPanel = Instantiate(mainMenuPanelPrefab, transform);
+            Debug.Log("Instantiated mainMenu");
             _optionsPanel = Instantiate(optionsPanelPrefab, transform);
         }
 

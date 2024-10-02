@@ -10,8 +10,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] [Range(1f, 1.5f)] private float fallIncreaseFactor = 1.1f;
     [SerializeField] private Audio jumpSound;
     
-    private SavePointManager saveManager;
-
     private readonly float _maxJumpFloatDuration = 15f;
 
     private Rigidbody2D _rigidbody2D;
@@ -31,17 +29,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        saveManager = GetComponent<SavePointManager>();
-        if (saveManager == null)
-        {
-            Debug.LogError("Unable to find SavePointManager Component on player instance");
-#if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-#else
-        // Quit the application if in a build
-        Application.Quit();
-#endif
-        }
+
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _initGravityScale = _rigidbody2D.gravityScale;
         _jumpCount = 0;
@@ -92,12 +80,6 @@ public class PlayerMovement : MonoBehaviour
         {
             InitializeWallJump(other.contacts[0].normal);
         }
-
-        if (other.gameObject.CompareTag("Obstacle"))
-        {
-            Debug.Log("Collided with Obstacle");
-            transform.position = saveManager.lastCheckpoint;
-        }
     }
 
     private void InitializeWallJump(Vector3 normal)
@@ -121,15 +103,7 @@ public class PlayerMovement : MonoBehaviour
             InitializeWallJump(other.contacts[0].normal);
         }
     }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("Void"))
-        {
-            //TODO handle Death
-            gameObject.transform.position = saveManager.lastCheckpoint;
-        }
-    }
+    
     
     void OnMove(InputValue value)
     {

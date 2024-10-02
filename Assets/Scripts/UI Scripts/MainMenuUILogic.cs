@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 public class MainMenuUILogic : MonoBehaviour
 {
     private const string StartButtonName = "StartButton";
-    private const string ExitButtonName = "ExitButton";
+    private const string ExitButtonName = "QuitButton";
     private const string OptionsButtonName = "OptionsButton";
 
     public event EventHandler OptionsButtonPressed;
