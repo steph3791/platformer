@@ -33,6 +33,7 @@ public class HomeUILogic : MonoBehaviour
         {
             Debug.Log("Start Button was clicked");
             UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+            Time.timeScale = 1f;
         };
 
         _mainMenuUIDocument.rootVisualElement.Q<Button>(OptionsButtonName).clicked += () =>

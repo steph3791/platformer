@@ -42,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!_canWallJump && _freezeMovement < 0)
         {
-            _rigidbody2D.velocity = new Vector2(_movementDirection * OptionsManager.Instance.MovementSpeed, Mathf.Max(_rigidbody2D.velocity.y, -9f));
+            _rigidbody2D.velocity = new Vector2(_movementDirection * PlayerOptionsManager.Instance.MovementSpeed, Mathf.Max(_rigidbody2D.velocity.y, -9f));
         }
         else
         {

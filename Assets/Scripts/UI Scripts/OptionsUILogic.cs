@@ -10,6 +10,8 @@ namespace UI
         private const string ConfirmButtonName = "ConfirmButton";
         private const string ResetButtonName = "ResetButton";
         private const string MovementSpeedSliderName = "SpeedSlider";
+        
+        private int _previousMovementSpeed;
 
         public event EventHandler LeaveOptionsMenu;
         protected virtual void OnLeaveOptionsButtonPressed()
@@ -17,16 +19,12 @@ namespace UI
             LeaveOptionsMenu?.Invoke(this, EventArgs.Empty);
         }
 
-        public event EventHandler ResetButtonPressed;
-        protected virtual void OnResetButtonPressed()
-        {
-            ResetButtonPressed?.Invoke(this, EventArgs.Empty);
-        }
-
         
         private UIDocument _optionsDocument;
         private void OnEnable()
         {
+            _previousMovementSpeed = PlayerOptionsManager.Instance.MovementSpeed;
+            
             _optionsDocument = GetComponent<UIDocument>();
             if (_optionsDocument == null)
             {
@@ -36,27 +34,28 @@ namespace UI
             }
             
             SliderInt speedSlider = _optionsDocument.rootVisualElement.Q<SliderInt>(MovementSpeedSliderName);
-            speedSlider.value = OptionsManager.Instance.MovementSpeed;
+            speedSlider.value = PlayerOptionsManager.Instance.MovementSpeed;
             speedSlider.RegisterValueChangedCallback(evt =>
             {
-                OptionsManager.Instance.MovementSpeed = evt.newValue;
+                PlayerOptionsManager.Instance.MovementSpeed = evt.newValue;
             });
 
             _optionsDocument.rootVisualElement.Q<Button>(ConfirmButtonName).clicked += () =>
             {
-                Debug.Log("Confirm button clicked!");
-                Debug.Log("Movement Speed: " + OptionsManager.Instance.MovementSpeed);
+                Debug.Log("Movement Speed: " + PlayerOptionsManager.Instance.MovementSpeed);
                 OnLeaveOptionsButtonPressed();
             };
             _optionsDocument.rootVisualElement.Q<Button>(CancelButtonName).clicked += () =>
             {
-                Debug.Log("Cancel button clicked!");
+                PlayerOptionsManager.Instance.MovementSpeed = _previousMovementSpeed;
+                Debug.Log("Cancel button clicked!. Set to previous Value: " + _previousMovementSpeed);
                 OnLeaveOptionsButtonPressed();
             };
             _optionsDocument.rootVisualElement.Q<Button>(ResetButtonName).clicked += () =>
             {
+                PlayerOptionsManager.Instance.Reset();
+                speedSlider.value = PlayerOptionsManager.Instance.MovementSpeed;
                 Debug.Log("Reset button clicked!");
-                OnResetButtonPressed();
             };
         }
     }

@@ -31,7 +31,14 @@ public class PauseUIManager : MonoBehaviour
 
         _pauseUILogic.OptionsButtonPressed += (sender, args) =>
         {
+            _pauseUILogic.gameObject.SetActive(false);
             _optionsPanel.gameObject.SetActive(true);
+        };
+
+        _optionsPanel.LeaveOptionsMenu += (sender, args) =>
+        {
+            _pauseUILogic.gameObject.SetActive(true);
+            _optionsPanel.gameObject.SetActive(false);
         };
     }
 
@@ -39,7 +46,6 @@ public class PauseUIManager : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Escape))
         {
-            Debug.Log("Pressed Escape");
             Time.timeScale = 0;
             _pauseUILogic.gameObject.SetActive(true);
         }
