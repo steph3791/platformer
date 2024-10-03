@@ -6,12 +6,15 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private PlayerHealth playerHealth;
+    [SerializeField] private GameObject gameOverPanel;
 
     private SavePointManager _saveManager;
+    private Audio _audio;
 
     void Start()
     {
         _saveManager = GetComponent<SavePointManager>();
+        _audio = GetComponent<Audio>();
         if (_saveManager == null)
         {
             Debug.LogError("Unable to find SavePointManager Component on player instance");
@@ -42,13 +45,15 @@ public class PlayerController : MonoBehaviour
 
     private void Damage()
     {
+        _audio.PlayDamageSound();   
         if (playerHealth.RemoveHeart())
         {
             _saveManager.Respawn();
         }
         else
         {
-            //TODO Handle Gameover
+            Debug.Log("GAME OVER");
+            Instantiate(gameOverPanel, transform.position, Quaternion.identity);
         }
     }
 }

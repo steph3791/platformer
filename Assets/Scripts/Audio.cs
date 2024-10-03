@@ -8,9 +8,12 @@ public class Audio : MonoBehaviour
 {
     [Header("Jump")] [SerializeField] private AudioClip jumpSound;
     [SerializeField] private float volume = 0.5f;
+    
+    [Header("Damage")] [SerializeField] private AudioClip damageSound;
+    [SerializeField] private float damageVolume = 0.5f;
 
     private AudioSource _jumpSource;
-    private GameObject _player;
+    private AudioSource _damageSource;
 
     private void Start()
     {
@@ -19,8 +22,10 @@ public class Audio : MonoBehaviour
             Debug.LogError("jumpSound is null");
             enabled = false;
         }
+        if (damageSound == null)
         {
-            
+            Debug.LogError("damageSound is null");
+            enabled = false;
         }
         _jumpSource = gameObject.AddComponent<AudioSource>();
         _jumpSource.clip = jumpSound;
@@ -28,10 +33,20 @@ public class Audio : MonoBehaviour
         _jumpSource.Play();
         _jumpSource.Pause();
         
+        _damageSource = gameObject.AddComponent<AudioSource>();
+        _damageSource.clip = damageSound;
+        _damageSource.volume = damageVolume;
+        _damageSource.Play();
+        _damageSource.Pause();
     }
 
-    public void Play()
+    public void PlayJumpSound()
     {
         _jumpSource.Play();
+    }
+
+    public void PlayDamageSound()
+    {
+        _damageSource.Play();
     }
 }

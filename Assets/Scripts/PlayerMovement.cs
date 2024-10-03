@@ -1,36 +1,32 @@
-using System.Linq;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    // [SerializeField] [Range(5, 20)] private int speed = 10;
     [SerializeField] [Range(1, 10)] private float jumpForce = 7;
     [SerializeField] [Range(1f, 1.5f)] private float fallIncreaseFactor = 1.1f;
-    [SerializeField] private Audio jumpSound;
     
-    private readonly float _maxJumpFloatDuration = 15f;
+    private Audio _playerSoundEffects;
+    
+    private readonly float _maxJumpFloatDuration = 10f;
 
     private Rigidbody2D _rigidbody2D;
     private float _movementDirection;
     private float _lastMovementDirection;
     private float _initGravityScale;
 
-    private byte _jumpCount;
+    private int _jumpCount;
     private bool _jumpReleased;
     private float _jumpFloatDuration;
 
     private bool _canWallJump;
     private float _wallJumpDirection;
     private float _freezeMovement;
-
-
-    // Start is called before the first frame update
+    
     void Start()
     {
-
         _rigidbody2D = GetComponent<Rigidbody2D>();
+        _playerSoundEffects = GetComponent<Audio>();
         _initGravityScale = _rigidbody2D.gravityScale;
         _jumpCount = 0;
         _jumpReleased = false;
@@ -73,8 +69,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Platform"))
         {
-                ResetJumpStats();
-                ResetJumpReleasedStats();
+            ResetJumpStats();
+            ResetJumpReleasedStats();
         }
         if (other.gameObject.CompareTag("Wall"))
         {
@@ -84,9 +80,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void InitializeWallJump(Vector3 normal)
     {
-        Debug.Log("Colliding with Wall");
         _canWallJump = true;
-        _freezeMovement = 20f;
+        _freezeMovement = 15f;
         _wallJumpDirection = normal.normalized.x;
     }
 
@@ -95,13 +90,22 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Platform"))
         {
-                ResetJumpStats();
-                ResetJumpReleasedStats();
+            ResetJumpStats();
+            ResetJumpReleasedStats();
         }
         if (other.gameObject.CompareTag("Wall"))
         {
             InitializeWallJump(other.contacts[0].normal);
         }
+    }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Platform"))
+        {
+            _jumpCount += 1;
+        }
+
     }
     
     
@@ -115,19 +119,18 @@ public class PlayerMovement : MonoBehaviour
         if (value.isPressed)
         {
             ResetJumpReleasedStats();
-            _jumpCount++;
             if (_canWallJump)
             {
                 _canWallJump = false;
                 HandleWallJump();
                 return;
             }
-            if (_jumpCount == 1)
+            if (_jumpCount == 0)
             {
                 _rigidbody2D.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
-                jumpSound.Play();
+                _playerSoundEffects.PlayJumpSound();
             }
-            else if (_jumpCount == 2)
+            else if (_jumpCount == 1)
             {
                 if (_rigidbody2D.velocity.y < 0)
                 {
@@ -135,8 +138,8 @@ public class PlayerMovement : MonoBehaviour
                     _rigidbody2D.gravityScale = _initGravityScale;
                 }
                 _rigidbody2D.AddForce(new Vector2(0, jumpForce / 1.1f), ForceMode2D.Impulse);
-                jumpSound.Play();
-
+                _playerSoundEffects.PlayJumpSound();
+                _jumpCount += 1;
             }
             else if (_jumpCount >= 2)
             {
@@ -146,7 +149,6 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             _jumpReleased = true;
-            
         }
     }
 
@@ -163,6 +165,7 @@ public class PlayerMovement : MonoBehaviour
         _rigidbody2D.totalForce = Vector2.zero;
         _rigidbody2D.velocity = Vector2.zero;
         _rigidbody2D.totalForce = Vector2.zero;
+        Debug.Log("Called ResetJumpStats from ResetAllPhysics");
         ResetJumpStats();
         ResetJumpReleasedStats();
     }
