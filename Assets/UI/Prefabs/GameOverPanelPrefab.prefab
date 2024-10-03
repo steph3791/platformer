@@ -151,7 +151,7 @@ GameObject:
   - component: {fileID: 1276686602124680845}
   - component: {fileID: 2246772238098249192}
   m_Layer: 5
-  m_Name: GameOverOverlay
+  m_Name: GameOverPanelPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

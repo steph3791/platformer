@@ -18,12 +18,7 @@ public class PlayerController : MonoBehaviour
         if (_saveManager == null)
         {
             Debug.LogError("Unable to find SavePointManager Component on player instance");
-#if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-#else
-        // Quit the application if in a build
-        Application.Quit();
-#endif
+            GameFlowManager.Instance.QuitApplication();
         }
     }
 
@@ -32,6 +27,11 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Void"))
         {
             Damage();
+        }
+
+        if (other.CompareTag("Finish"))
+        {
+            GameFlowManager.Instance.ManageWinLevel(transform.position);
         }
     }
 
@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             Debug.Log("GAME OVER");
-            Instantiate(gameOverPanel, transform.position, Quaternion.identity);
+            GameFlowManager.Instance.ManageGameOver(transform.position);
         }
     }
 }

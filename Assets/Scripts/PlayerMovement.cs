@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     private readonly float _maxJumpFloatDuration = 10f;
 
     private Rigidbody2D _rigidbody2D;
+    private Vector2 _initPosition;
     private float _movementDirection;
     private float _lastMovementDirection;
     private float _initGravityScale;
@@ -22,11 +24,14 @@ public class PlayerMovement : MonoBehaviour
     private bool _canWallJump;
     private float _wallJumpDirection;
     private float _freezeMovement;
+
+    private bool _stuckToWall;
     
     void Start()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _playerSoundEffects = GetComponent<Audio>();
+        _initPosition = transform.position;
         _initGravityScale = _rigidbody2D.gravityScale;
         _jumpCount = 0;
         _jumpReleased = false;
@@ -69,8 +74,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Platform"))
         {
-            ResetJumpStats();
-            ResetJumpReleasedStats();
+            if (other.contacts.Any(contact => Mathf.Approximately(Vector3.Dot(contact.normal, Vector3.up), 1f)))
+            {
+                Debug.Log("Reseting Jump Stats from CollisionEnter Contacts");
+                ResetJumpStats();
+                ResetJumpReleasedStats();
+            }
         }
         if (other.gameObject.CompareTag("Wall"))
         {
@@ -90,8 +99,17 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Platform"))
         {
-            ResetJumpStats();
-            ResetJumpReleasedStats();
+            if (other.contacts.Any(contact => Mathf.Approximately(Vector3.Dot(contact.normal, Vector3.up), 1f)))
+            {
+                Debug.Log("Reseting JumpStats from CollisionStay Contacts");
+                ResetJumpStats();
+                ResetJumpReleasedStats();
+                _stuckToWall = false;
+            }
+            else
+            {
+                _stuckToWall = true;
+            }
         }
         if (other.gameObject.CompareTag("Wall"))
         {
@@ -103,9 +121,16 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Platform"))
         {
+            Debug.Log("Adding Jumpcount from CollisionExit");
             _jumpCount += 1;
+            if (!other.contacts.Any(contact => Mathf.Approximately(Vector3.Dot(contact.normal, Vector3.up), 1f)))
+            {
+                Debug.Log("OnCollisionExit Contacts");
+                // _jumpCount += 1;
+            }
         }
-
+    
+    
     }
     
     
@@ -125,18 +150,25 @@ public class PlayerMovement : MonoBehaviour
                 HandleWallJump();
                 return;
             }
+            if (_stuckToWall && _jumpCount == 0) //The collision Exit Trigger doesnt count
+            {
+                _jumpCount += 1;
+            }
             if (_jumpCount == 0)
             {
+                Debug.Log("First Jump");
                 _rigidbody2D.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
                 _playerSoundEffects.PlayJumpSound();
+      
             }
             else if (_jumpCount == 1)
             {
+                Debug.Log("Seond Jump");
                 if (_rigidbody2D.velocity.y < 0)
                 {
                     _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, 0); //get full impact of second jump without downwards velocity deminishing the jump;
                     _rigidbody2D.gravityScale = _initGravityScale;
-                }
+                } 
                 _rigidbody2D.AddForce(new Vector2(0, jumpForce / 1.1f), ForceMode2D.Impulse);
                 _playerSoundEffects.PlayJumpSound();
                 _jumpCount += 1;
