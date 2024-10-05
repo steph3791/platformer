@@ -11,9 +11,13 @@ public class Audio : MonoBehaviour
     
     [Header("Damage")] [SerializeField] private AudioClip damageSound;
     [SerializeField] private float damageVolume = 0.5f;
+    
+    [Header("Win")] [SerializeField] private AudioClip winSound;
+    [SerializeField] private float winVolume = 0.5f;
 
     private AudioSource _jumpSource;
     private AudioSource _damageSource;
+    private AudioSource _winSource;
 
     private void Start()
     {
@@ -27,6 +31,12 @@ public class Audio : MonoBehaviour
             Debug.LogError("damageSound is null");
             enabled = false;
         }
+
+        if (winSound == null)
+        {
+            Debug.LogError("winSound is null");
+            enabled = false;
+        }
         _jumpSource = gameObject.AddComponent<AudioSource>();
         _jumpSource.clip = jumpSound;
         _jumpSource.volume = volume;
@@ -38,6 +48,12 @@ public class Audio : MonoBehaviour
         _damageSource.volume = damageVolume;
         _damageSource.Play();
         _damageSource.Pause();
+        
+        _winSource = gameObject.AddComponent<AudioSource>();
+        _winSource.clip = winSound;
+        _winSource.volume = winVolume;
+        _winSource.Play();
+        _winSource.Pause();
     }
 
     public void PlayJumpSound()
@@ -48,5 +64,11 @@ public class Audio : MonoBehaviour
     public void PlayDamageSound()
     {
         _damageSource.Play();
+    }
+
+    public void PlayWinSound()
+    {
+        Debug.Log("Playing Win Sound");
+        _winSource.Play();
     }
 }

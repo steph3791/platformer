@@ -1,23 +1,19 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private PlayerHealth playerHealth;
-    [SerializeField] private GameObject gameOverPanel;
 
-    private SavePointManager _saveManager;
     private Audio _audio;
+
+    private Vector3 _lastCheckpoint = Vector3.zero;
 
     void Start()
     {
-        _saveManager = GetComponent<SavePointManager>();
         _audio = GetComponent<Audio>();
-        if (_saveManager == null)
+        if (_audio == null)
         {
-            Debug.LogError("Unable to find SavePointManager Component on player instance");
+            Debug.LogError("Unable to find Audio Component on player instance");
             GameFlowManager.Instance.QuitApplication();
         }
     }
@@ -31,7 +27,18 @@ public class PlayerController : MonoBehaviour
 
         if (other.CompareTag("Finish"))
         {
+            _audio.PlayWinSound();
             GameFlowManager.Instance.ManageWinLevel(transform.position);
+        }
+        
+        if (other.gameObject.CompareTag("Respawn"))
+        {
+            Debug.Log("Colliding with Respawn. Distance: " +Mathf.Abs(transform.position.x - _lastCheckpoint.x));
+            if (Mathf.Abs(transform.position.x - _lastCheckpoint.x) > 2)
+            {
+                _audio.PlayWinSound();
+            }
+            _lastCheckpoint = gameObject.transform.position;
         }
     }
 
@@ -48,7 +55,8 @@ public class PlayerController : MonoBehaviour
         _audio.PlayDamageSound();   
         if (playerHealth.RemoveHeart())
         {
-            _saveManager.Respawn();
+            Respawn();
+            _audio.PlayWinSound();
         }
         else
         {
@@ -56,4 +64,12 @@ public class PlayerController : MonoBehaviour
             GameFlowManager.Instance.ManageGameOver(transform.position);
         }
     }
+    
+    public void Respawn()
+    {
+        Debug.Log("Respawning");
+        gameObject.transform.position = _lastCheckpoint;
+    }
+    
+
 }
