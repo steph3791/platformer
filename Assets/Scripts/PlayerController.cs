@@ -22,22 +22,17 @@ public class PlayerController : MonoBehaviour
     {
         if (other.CompareTag("Void"))
         {
+            Debug.Log("Play Damage from trigger Void");
             Damage();
         }
 
         if (other.CompareTag("Finish"))
         {
-            _audio.PlayWinSound();
             GameFlowManager.Instance.ManageWinLevel(transform.position);
         }
         
         if (other.gameObject.CompareTag("Respawn"))
         {
-            Debug.Log("Colliding with Respawn. Distance: " +Mathf.Abs(transform.position.x - _lastCheckpoint.x));
-            if (Mathf.Abs(transform.position.x - _lastCheckpoint.x) > 2)
-            {
-                _audio.PlayWinSound();
-            }
             _lastCheckpoint = gameObject.transform.position;
         }
     }
@@ -46,6 +41,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Obstacle"))
         {
+            Debug.Log("Play Damage from Collision Obstacle");
             Damage();
         }
     }
@@ -56,7 +52,6 @@ public class PlayerController : MonoBehaviour
         if (playerHealth.RemoveHeart())
         {
             Respawn();
-            _audio.PlayWinSound();
         }
         else
         {
