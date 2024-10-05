@@ -22,7 +22,6 @@ public class GameFlowManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            Debug.Log("OptionsManager Awake");
         }
     }
 

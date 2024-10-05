@@ -9,7 +9,6 @@ public class PlayerOptionsManager : MonoBehaviour
 
     private const int DefaultMovementSpeed = 10;
     
-    
     private int _movementSpeed = 10;
     public int MovementSpeed
     {
@@ -21,14 +20,12 @@ public class PlayerOptionsManager : MonoBehaviour
     {
         if (Instance != null)
         {
-            Debug.Log("INSTANCE is not null, destroying gameobject");
             Destroy(gameObject);
         }
         else
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            Debug.Log("OptionsManager Awake");
         }
     }
 

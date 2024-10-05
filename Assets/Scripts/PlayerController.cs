@@ -22,7 +22,6 @@ public class PlayerController : MonoBehaviour
     {
         if (other.CompareTag("Void"))
         {
-            Debug.Log("Play Damage from trigger Void");
             Damage();
         }
 
@@ -41,7 +40,6 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Obstacle"))
         {
-            Debug.Log("Play Damage from Collision Obstacle");
             Damage();
         }
     }

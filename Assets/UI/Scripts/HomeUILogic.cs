@@ -31,20 +31,14 @@ public class HomeUILogic : MonoBehaviour
 
         _mainMenuUIDocument.rootVisualElement.Q<Button>(StartButtonName).clicked += () =>
         {
-            Debug.Log("Start Button was clicked");
             UnityEngine.SceneManagement.SceneManager.LoadScene(1);
             Time.timeScale = 1f;
         };
 
-        _mainMenuUIDocument.rootVisualElement.Q<Button>(OptionsButtonName).clicked += () =>
-        {
-            Debug.Log("Options Button was clicked");
-            OnOptionsButtonPressed();
-        };
+        _mainMenuUIDocument.rootVisualElement.Q<Button>(OptionsButtonName).clicked += OnOptionsButtonPressed;
 
         _mainMenuUIDocument.rootVisualElement.Q<Button>(ExitButtonName).clicked += () =>
         {
-            Debug.Log("Exit Button was clicked");
 #if !UNITY_EDITOR
                         Application.Quit();
 #elif UNITY_EDITOR

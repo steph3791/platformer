@@ -76,7 +76,6 @@ public class PlayerMovement : MonoBehaviour
         {
             if (other.contacts.Any(contact => Mathf.Approximately(Vector3.Dot(contact.normal, Vector3.up), 1f)))
             {
-                Debug.Log("Reseting Jump Stats from CollisionEnter Contacts");
                 ResetJumpStats();
                 ResetJumpReleasedStats();
             }
@@ -101,7 +100,6 @@ public class PlayerMovement : MonoBehaviour
         {
             if (other.contacts.Any(contact => Mathf.Approximately(Vector3.Dot(contact.normal, Vector3.up), 1f)))
             {
-                Debug.Log("Reseting JumpStats from CollisionStay Contacts");
                 ResetJumpStats();
                 ResetJumpReleasedStats();
                 _stuckToWall = false;
@@ -121,13 +119,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Platform"))
         {
-            Debug.Log("Adding Jumpcount from CollisionExit");
             _jumpCount += 1;
-            if (!other.contacts.Any(contact => Mathf.Approximately(Vector3.Dot(contact.normal, Vector3.up), 1f)))
-            {
-                Debug.Log("OnCollisionExit Contacts");
-                // _jumpCount += 1;
-            }
         }
     
     
@@ -156,14 +148,12 @@ public class PlayerMovement : MonoBehaviour
             }
             if (_jumpCount == 0)
             {
-                Debug.Log("First Jump");
                 _rigidbody2D.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
                 _playerSoundEffects.PlayJumpSound();
       
             }
             else if (_jumpCount == 1)
             {
-                Debug.Log("Seond Jump");
                 if (_rigidbody2D.velocity.y < 0)
                 {
                     _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, 0); //get full impact of second jump without downwards velocity deminishing the jump;
@@ -186,7 +176,6 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleWallJump()
     {
-        Debug.Log("Handling Wall Jump with direction: " +_wallJumpDirection);
         ResetAllPhysics();
         _rigidbody2D.position = new Vector2(_rigidbody2D.position.x + (0.1f * _wallJumpDirection), _rigidbody2D.position.y);
         _rigidbody2D.AddForce(new Vector2(5 * _wallJumpDirection, jumpForce), ForceMode2D.Impulse);
@@ -197,7 +186,6 @@ public class PlayerMovement : MonoBehaviour
         _rigidbody2D.totalForce = Vector2.zero;
         _rigidbody2D.velocity = Vector2.zero;
         _rigidbody2D.totalForce = Vector2.zero;
-        Debug.Log("Called ResetJumpStats from ResetAllPhysics");
         ResetJumpStats();
         ResetJumpReleasedStats();
     }
