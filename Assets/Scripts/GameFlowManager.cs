@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,7 @@ public class GameFlowManager : MonoBehaviour
     [SerializeField] private GameObject gameFinishedPanel;
     
     public static GameFlowManager Instance;
-    private int _currentLevel = 0;
+    private int _currentLevel = 1;
     
     private void Awake()
     {
@@ -32,25 +33,28 @@ public class GameFlowManager : MonoBehaviour
 
     public void ManageWinLevel(Vector3 position)
     {
-        Instantiate(gameWinLevelPanel, position, Quaternion.identity);
+        _currentLevel += 1;
+        Debug.Log($"CurrentLevel {_currentLevel} Total Levels: {SceneManager.sceneCountInBuildSettings}");
+        if (_currentLevel >= SceneManager.sceneCountInBuildSettings)
+        {
+            StartCoroutine(WaitForSeconds(3, () => ManageFinishedGame(position)));
+        }
+        else
+        {
+            Instantiate(gameWinLevelPanel, position, Quaternion.identity);
+            StartCoroutine(WaitForSeconds(3, () => SceneManager.LoadSceneAsync(_currentLevel)));
+        }
     }
+    
 
     public void ManageFinishedGame(Vector3 position)
     {
         Instantiate(gameFinishedPanel, position, Quaternion.identity);
     }
 
-    public void LoadNextLevel(Vector3 position)
+    public void GoToStartScene()
     {
-        _currentLevel += 1;
-        if (_currentLevel >= SceneManager.sceneCountInBuildSettings)
-        {
-            ManageFinishedGame(position);
-        }
-        else
-        {
-            SceneManager.LoadSceneAsync(_currentLevel);
-        }
+        SceneManager.LoadSceneAsync(0);
     }
 
     public void QuitApplication()
@@ -61,6 +65,13 @@ public class GameFlowManager : MonoBehaviour
         // Quit the application if in a build
         Application.Quit();
 #endif
+    }
+    
+
+    private IEnumerator WaitForSeconds(float seconds, Action then)
+    {
+        yield return new WaitForSeconds(seconds);
+        then.Invoke();
     }
 
 

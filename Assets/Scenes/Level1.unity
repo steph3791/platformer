@@ -8115,6 +8115,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelWinParticles
       objectReference: {fileID: 0}
+    - target: {fileID: 4355588887305023157, guid: 49daf6987a8162245945f0e7f8125c22, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 5588437253445207062, guid: 49daf6987a8162245945f0e7f8125c22, type: 3}
       propertyPath: m_LocalPosition.x
       value: 35.5

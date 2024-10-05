@@ -29,7 +29,6 @@ public class CollisionParticleEffect : MonoBehaviour
 
         if (other.CompareTag("Player") && !_collided)
         {
-            Debug.Log("Collided with Player");
             _collided = true;
             _ps.Play();
             if (_audio != null)
@@ -48,8 +47,6 @@ public class CollisionParticleEffect : MonoBehaviour
         {
             yield return null; // Wait for the next frame
         }
-
-        Debug.Log("Destroying gameobjcet");
         Destroy(gameObject);
     }
 }

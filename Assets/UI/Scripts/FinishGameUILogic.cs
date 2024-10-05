@@ -6,15 +6,15 @@ using UnityEngine.UIElements;
 
 public class FinishGameUILogic : MonoBehaviour
 {
-    private const string ExitToMainMenuButton = "StartButton";
-    private const string ExitGameButton = "QuitButton";
+    private const string ExitToMainMenuButton = "GoToMainMenuButton";
+    private const string ExitGameButton = "QuitGameButton";
 
     private void OnEnable()
     {
         UIDocument uiDocument = GetComponent<UIDocument>();
         uiDocument.rootVisualElement.Q<Button>(ExitToMainMenuButton).clicked += () =>
         {
-            GameFlowManager.Instance.LoadNextLevel(transform.position);
+            GameFlowManager.Instance.GoToStartScene();
         };
         uiDocument.rootVisualElement.Q<Button>(ExitGameButton).clicked += () =>
         {
