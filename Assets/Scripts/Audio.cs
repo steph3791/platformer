@@ -44,7 +44,7 @@ public class Audio : MonoBehaviour
 
     public void PlayDamageSound()
     {
-        _damageSource.Play();
+        // _damageSource.Play();
     }
     
 }

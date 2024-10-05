@@ -53,14 +53,12 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            Debug.Log("GAME OVER");
             GameFlowManager.Instance.ManageGameOver(transform.position);
         }
     }
     
     public void Respawn()
     {
-        Debug.Log("Respawning");
         gameObject.transform.position = _lastCheckpoint;
     }
     

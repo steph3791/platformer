@@ -29,12 +29,12 @@ public class GameFlowManager : MonoBehaviour
     public void ManageGameOver(Vector3 position)
     {
         Instantiate(gameOverPanel, position, Quaternion.identity);
+        StartCoroutine(WaitForSeconds(3, () => SceneManager.LoadScene(0)));
     }
 
     public void ManageWinLevel(Vector3 position)
     {
         _currentLevel += 1;
-        Debug.Log($"CurrentLevel {_currentLevel} Total Levels: {SceneManager.sceneCountInBuildSettings}");
         if (_currentLevel >= SceneManager.sceneCountInBuildSettings)
         {
             StartCoroutine(WaitForSeconds(3, () => ManageFinishedGame(position)));

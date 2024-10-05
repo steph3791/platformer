@@ -35,21 +35,12 @@ public class PauseUILogic : MonoBehaviour
             enabled = false;
         }
 
-        _pauseUiDocument.rootVisualElement.Q<Button>(ContinueButtonName).clicked += () =>
-        {
-            Debug.Log("Continue Button was clicked");
-            OnContinueButtonPressed();
-        };
+        _pauseUiDocument.rootVisualElement.Q<Button>(ContinueButtonName).clicked += OnContinueButtonPressed;
 
-        _pauseUiDocument.rootVisualElement.Q<Button>(OptionsButtonName).clicked += () =>
-        {
-            Debug.Log("Options Button was clicked");
-            OnOptionsButtonPressed();
-        };
+        _pauseUiDocument.rootVisualElement.Q<Button>(OptionsButtonName).clicked += OnOptionsButtonPressed;
 
         _pauseUiDocument.rootVisualElement.Q<Button>(ExitToMainButton).clicked += () =>
         {
-            Debug.Log("Exit To Main Button was clicked");
             gameObject.SetActive(false);
             UnityEngine.SceneManagement.SceneManager.LoadScene(0);
         };

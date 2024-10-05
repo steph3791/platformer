@@ -40,22 +40,16 @@ namespace UI
                 PlayerOptionsManager.Instance.MovementSpeed = evt.newValue;
             });
 
-            _optionsDocument.rootVisualElement.Q<Button>(ConfirmButtonName).clicked += () =>
-            {
-                Debug.Log("Movement Speed: " + PlayerOptionsManager.Instance.MovementSpeed);
-                OnLeaveOptionsButtonPressed();
-            };
+            _optionsDocument.rootVisualElement.Q<Button>(ConfirmButtonName).clicked += OnLeaveOptionsButtonPressed;
             _optionsDocument.rootVisualElement.Q<Button>(CancelButtonName).clicked += () =>
             {
                 PlayerOptionsManager.Instance.MovementSpeed = _previousMovementSpeed;
-                Debug.Log("Cancel button clicked!. Set to previous Value: " + _previousMovementSpeed);
                 OnLeaveOptionsButtonPressed();
             };
             _optionsDocument.rootVisualElement.Q<Button>(ResetButtonName).clicked += () =>
             {
                 PlayerOptionsManager.Instance.Reset();
                 speedSlider.value = PlayerOptionsManager.Instance.MovementSpeed;
-                Debug.Log("Reset button clicked!");
             };
         }
     }

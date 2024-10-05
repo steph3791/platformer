@@ -6,7 +6,9 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] [Range(1, 10)] private float jumpForce = 7;
     [SerializeField] [Range(1f, 1.5f)] private float fallIncreaseFactor = 1.1f;
+   
     
+    private Animator _animator;
     private Audio _playerSoundEffects;
     
     private readonly float _maxJumpFloatDuration = 10f;
@@ -31,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _playerSoundEffects = GetComponent<Audio>();
+        _animator = GetComponent<Animator>();
         _initPosition = transform.position;
         _initGravityScale = _rigidbody2D.gravityScale;
         _jumpCount = 0;
@@ -78,6 +81,8 @@ public class PlayerMovement : MonoBehaviour
             {
                 ResetJumpStats();
                 ResetJumpReleasedStats();
+                Debug.Log("Resetting Anim");
+                _animator.SetBool("jumping", false);
             }
         }
         if (other.gameObject.CompareTag("Wall"))
@@ -88,6 +93,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void InitializeWallJump(Vector3 normal)
     {
+        _animator.SetBool("jumping", false);
         _canWallJump = true;
         _freezeMovement = 15f;
         _wallJumpDirection = normal.normalized.x;
@@ -121,8 +127,6 @@ public class PlayerMovement : MonoBehaviour
         {
             _jumpCount += 1;
         }
-    
-    
     }
     
     
@@ -142,12 +146,13 @@ public class PlayerMovement : MonoBehaviour
                 HandleWallJump();
                 return;
             }
-            if (_stuckToWall && _jumpCount == 0) //The collision Exit Trigger doesnt count
+            if (_stuckToWall && _jumpCount == 0)
             {
                 _jumpCount += 1;
             }
             if (_jumpCount == 0)
             {
+                _animator.SetBool("jumping", true);
                 _rigidbody2D.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
                 _playerSoundEffects.PlayJumpSound();
       

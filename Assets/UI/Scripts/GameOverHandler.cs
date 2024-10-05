@@ -29,6 +29,5 @@ public class GameOverHandler : MonoBehaviour
             yield return null;
         }
         canvasGroup.SetAlpha(1f);
-        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
     }
 }

@@ -15,7 +15,6 @@ public class PauseUIManager : MonoBehaviour
     {
         _pauseUILogic = Instantiate(pauseUiLogic, transform);
         _optionsPanel = Instantiate(optionsPanelPrefab, transform);
-
     }
 
     private void Start()

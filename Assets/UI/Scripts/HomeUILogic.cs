@@ -39,11 +39,7 @@ public class HomeUILogic : MonoBehaviour
 
         _mainMenuUIDocument.rootVisualElement.Q<Button>(ExitButtonName).clicked += () =>
         {
-#if !UNITY_EDITOR
-                        Application.Quit();
-#elif UNITY_EDITOR
-            EditorApplication.ExitPlaymode();
-#endif
+            GameFlowManager.Instance.QuitApplication();
         };
     }
 }
