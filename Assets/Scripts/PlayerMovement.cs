@@ -49,7 +49,6 @@ public class PlayerMovement : MonoBehaviour
     private void UpdateProperties()
     {
         _movementSpeed = PersistentDataManager.MovementSpeed;
-        Debug.Log("Get Movement Speed: " + _movementSpeed);
     }
 
     void FixedUpdate()
@@ -91,7 +90,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 ResetJumpStats();
                 ResetJumpReleasedStats();
-                Debug.Log("Resetting Anim");
                 _animator.SetBool("jumping", false);
             }
         }

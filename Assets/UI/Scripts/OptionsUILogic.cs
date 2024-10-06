@@ -25,7 +25,6 @@ namespace UI
         {
             //TODO how to access default 
             _movementSpeed = PersistentDataManager.MovementSpeed;
-            Debug.Log("Get Movement Speed: "  + _movementSpeed);
 
             _optionsDocument = GetComponent<UIDocument>();
             if (_optionsDocument == null)
@@ -53,7 +52,6 @@ namespace UI
                 PersistentDataManager.Reset();
                 speedSlider.value = PersistentDataManager.MovementSpeed;
                 _movementSpeed = PersistentDataManager.MovementSpeed;
-                Debug.Log("Get Movement Speed: " + _movementSpeed);
             };
         }
     }

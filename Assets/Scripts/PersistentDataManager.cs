@@ -21,14 +21,12 @@ public static class PersistentDataManager
         set
         {
             PlayerPrefs.SetInt(Speed, value);
-            Debug.Log("Changed Player Speed to: " + value);
             OnDataChanged();
         }
     }
 
     public static void Reset()
     {
-        Debug.Log("Resetting Movement Speed");
         MovementSpeed = DefaultSpeed;
     }
 }

@@ -24,7 +24,6 @@ public class PlayerHealth : MonoBehaviour
         if (lostLives < hearts.Length)
         {
             hearts[^lostLives].gameObject.SetActive(false);
-            Debug.Log("Removed a Heart");
             return true;
         }
         return false;
