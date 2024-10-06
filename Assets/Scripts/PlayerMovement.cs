@@ -6,7 +6,6 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] [Range(1, 10)] private float jumpForce = 7;
     [SerializeField] [Range(1f, 1.5f)] private float fallIncreaseFactor = 1.1f;
-   
     
     private Animator _animator;
     private Audio _playerSoundEffects;
@@ -16,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D _rigidbody2D;
     private Vector2 _initPosition;
     private float _movementDirection;
+    private float _movementSpeed;
     private float _lastMovementDirection;
     private float _initGravityScale;
 
@@ -29,6 +29,8 @@ public class PlayerMovement : MonoBehaviour
 
     private bool _stuckToWall;
     
+    
+    
     void Start()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
@@ -39,14 +41,22 @@ public class PlayerMovement : MonoBehaviour
         _jumpCount = 0;
         _jumpReleased = false;
         _jumpFloatDuration = 0f;
+        PersistentDataManager.DataChangedEvent += (_, _) => UpdateProperties();
+        UpdateProperties();
+
     }
 
+    private void UpdateProperties()
+    {
+        _movementSpeed = PersistentDataManager.MovementSpeed;
+        Debug.Log("Get Movement Speed: " + _movementSpeed);
+    }
 
     void FixedUpdate()
     {
         if (!_canWallJump && _freezeMovement < 0)
         {
-            _rigidbody2D.velocity = new Vector2(_movementDirection * PlayerOptionsManager.Instance.MovementSpeed, Mathf.Max(_rigidbody2D.velocity.y, -9f));
+            _rigidbody2D.velocity = new Vector2(_movementDirection * _movementSpeed, Mathf.Max(_rigidbody2D.velocity.y, -9f));
         }
         else
         {

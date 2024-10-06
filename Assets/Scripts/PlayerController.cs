@@ -5,7 +5,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerHealth playerHealth;
 
     private Audio _audio;
-
     private Vector3 _lastCheckpoint = Vector3.zero;
 
     void Start()
